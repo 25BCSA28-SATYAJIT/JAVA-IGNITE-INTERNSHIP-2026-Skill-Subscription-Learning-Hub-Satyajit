@@ -36,10 +36,11 @@ public class UserServiceImpl implements UserService {
         if (existing != null) {
             return null;
         }
-
-        // STEP 3: if not → save user to DB
-        // STEP 4: return saved user
-        return userRepo.save(user);
+        else {
+            // STEP 3: if not → save user to DB
+            // STEP 4: return saved user
+            return userRepo.save(user);
+        }
     }
 
     @Override
@@ -54,14 +55,16 @@ public class UserServiceImpl implements UserService {
         if (user == null) {
             return null;
         }
-
-        // STEP 3: check password match
-        // STEP 4: if correct → return user
-        if (user.getPassword().equals(password)) {
-            return user;
+        else {
+            // STEP 3: check password match
+            // STEP 4: if correct → return user
+            // STEP 5: else → return null
+            if (user.getPassword().equals(password)) {
+                return user;
+            } 
+            else {
+                return null;
+            }
         }
-
-        // STEP 5: else → return null
-        return null;
     }
 }
