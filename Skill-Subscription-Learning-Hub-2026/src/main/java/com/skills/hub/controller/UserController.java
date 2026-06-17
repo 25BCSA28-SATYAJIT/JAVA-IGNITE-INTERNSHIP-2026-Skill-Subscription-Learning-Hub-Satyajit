@@ -4,6 +4,7 @@ import com.skills.hub.model.User;
 import com.skills.hub.service.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import jakarta.servlet.http.HttpSession;
 
 /*
 =========================================================
@@ -56,7 +57,8 @@ public class UserController {
 
     @PostMapping("/login")
     public String login(@RequestParam String email,
-                        @RequestParam String password) {
+                        @RequestParam String password,
+                        HttpSession session) {
         // =========================
         // PSEUDO CODE
         // =========================
@@ -65,12 +67,20 @@ public class UserController {
 
         // STEP 2: if user != null → redirect /packs
         if (user != null) {
+            session.setAttribute("loggedUser", user);
             return "redirect:/packs";
         }
         // STEP 3: else → return login page again
         else {
             return "login";
         }
+    }
+
+    // logout endpoint
+    @PostMapping("/logout")
+    public String logout(HttpSession session) {
+        session.invalidate();
+        return "redirect:/login";
     }
 
     public UserService getUserService() {
