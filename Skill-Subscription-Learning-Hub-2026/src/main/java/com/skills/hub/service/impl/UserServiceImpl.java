@@ -26,9 +26,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User registerUser(User user) {
-        // =========================
-        // TASK
-        // =========================
         // STEP 1: check if email already exists
         User existing = userRepo.findByEmail(user.getEmail());
 
@@ -36,18 +33,15 @@ public class UserServiceImpl implements UserService {
         if (existing != null) {
             return null;
         }
+        // STEP 3: if not → save user to DB
+        // STEP 4: return saved user
         else {
-            // STEP 3: if not → save user to DB
-            // STEP 4: return saved user
             return userRepo.save(user);
         }
     }
 
     @Override
     public User login(String email, String password) {
-        // =========================
-        // TASK
-        // =========================
         // STEP 1: find user by email
         User user = userRepo.findByEmail(email);
 
@@ -55,13 +49,13 @@ public class UserServiceImpl implements UserService {
         if (user == null) {
             return null;
         }
+        // STEP 3: check password match
+        // STEP 4: if correct → return user
+        // STEP 5: else → return null
         else {
-            // STEP 3: check password match
-            // STEP 4: if correct → return user
-            // STEP 5: else → return null
             if (user.getPassword().equals(password)) {
                 return user;
-            } 
+            }
             else {
                 return null;
             }
