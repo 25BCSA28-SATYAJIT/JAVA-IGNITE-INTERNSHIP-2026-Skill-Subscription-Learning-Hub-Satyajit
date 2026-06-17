@@ -20,10 +20,10 @@ public class SkillPackServiceImpl implements SkillPackService {
         // STEP 1: validate input
         if (pack.getTitle() == null || pack.getTitle().isEmpty()) {
             return null;
-        } 
+        }
+        // STEP 2: save to DB
+        // STEP 3: return saved object
         else {
-            // STEP 2: save to DB
-            // STEP 3: return saved object
             return packRepo.save(pack);
         }
     }
@@ -43,15 +43,14 @@ public class SkillPackServiceImpl implements SkillPackService {
         // STEP 2: if not found → return null
         if (existing == null) {
             return null;
-        } 
+        }
+        // STEP 3: update fields
+        // STEP 4: save updated pack
+        // STEP 5: return updated pack
         else {
-            // STEP 3: update fields
             existing.setTitle(pack.getTitle());
             existing.setDescription(pack.getDescription());
             existing.setPrice(pack.getPrice());
-
-            // STEP 4: save updated pack
-            // STEP 5: return updated pack
             return packRepo.save(existing);
         }
     }
